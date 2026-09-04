@@ -14,7 +14,6 @@
     background:linear-gradient(160deg,#ffe3f1 0%,#ffc9e3 45%,#ffb3d9 100%);
   }
 
-  /* burbujas de fondo */
   .burbuja{
     position:fixed;border-radius:50%;background:rgba(255,255,255,.42);
     pointer-events:none;animation:subir linear infinite;
@@ -27,7 +26,7 @@
 
   .tarjeta{
     position:relative;z-index:2;width:100%;max-width:352px;
-    padding:40px 28px 30px;text-align:center;
+    padding:34px 28px 30px;text-align:center;
     background:rgba(255,255,255,.82);backdrop-filter:blur(10px);
     border:2px solid #fff;border-radius:32px;
     box-shadow:0 18px 45px rgba(214,51,132,.22);
@@ -36,14 +35,46 @@
   }
   @keyframes entrar{to{opacity:1;transform:none}}
 
-  .flor{
-    display:block;font-size:52px;line-height:1;margin-bottom:12px;
-    opacity:0;transform:scale(.4) rotate(-45deg);
-    animation:florecer .8s cubic-bezier(.34,1.56,.64,1) .45s forwards,
-              latir 2.6s ease-in-out 1.6s infinite;
+  /* ---------- conejito ---------- */
+  .conejo{
+    position:relative;height:118px;margin-bottom:10px;
+    display:flex;align-items:flex-end;justify-content:center;
   }
-  @keyframes florecer{to{opacity:1;transform:none}}
-  @keyframes latir{0%,100%{transform:scale(1)}50%{transform:scale(1.1)}}
+  .sombra{
+    position:absolute;bottom:2px;width:54px;height:10px;border-radius:50%;
+    background:rgba(214,51,132,.18);
+    opacity:0;animation:sombraAparece .5s ease .45s forwards,
+                        sombrita 1.7s ease-in-out 1s infinite;
+  }
+  @keyframes sombraAparece{to{opacity:1}}
+  @keyframes sombrita{
+    0%,100%{transform:scaleX(1);opacity:.9}
+    14%{transform:scaleX(1.12);opacity:1}
+    42%{transform:scaleX(.62);opacity:.45}
+    64%{transform:scaleX(1.12);opacity:1}
+    80%{transform:scaleX(1);opacity:.9}
+  }
+  .bunny{
+    position:relative;transform-origin:50% 100%;
+    opacity:0;transform:scale(.5) translateY(8px);
+    animation:asomarse .6s cubic-bezier(.34,1.56,.64,1) .45s forwards,
+              brinco 1.7s ease-in-out 1.05s infinite;
+  }
+  @keyframes asomarse{to{opacity:1;transform:none}}
+  @keyframes brinco{
+    0%,100%{transform:translateY(0) scale(1,1)}
+    14%{transform:translateY(0) scale(1.1,.86)}
+    42%{transform:translateY(-30px) scale(.95,1.07)}
+    64%{transform:translateY(0) scale(1.09,.89)}
+    80%{transform:translateY(0) scale(1,1)}
+  }
+  .orejas{transform-origin:50% 92%;animation:oreja 1.7s ease-in-out 1.05s infinite}
+  @keyframes oreja{
+    0%,100%{transform:rotate(0deg)}
+    42%{transform:rotate(-5deg)}
+    66%{transform:rotate(4deg)}
+    84%{transform:rotate(0deg)}
+  }
 
   h1{
     font-size:clamp(19px,5.6vw,23px);font-weight:700;color:#c2185b;
@@ -55,8 +86,7 @@
 
   .sub{
     font-size:15px;font-weight:500;line-height:1.55;color:#a4547c;margin-bottom:26px;
-    opacity:0;transform:translateY(10px);
-    animation:aparecer .7s ease 1.35s forwards;
+    opacity:0;transform:translateY(10px);animation:aparecer .7s ease 1.4s forwards;
   }
   @keyframes aparecer{to{opacity:1;transform:none}}
 
@@ -67,7 +97,7 @@
     background:linear-gradient(135deg,#ff6fae 0%,#f0407f 100%);
     box-shadow:0 10px 22px rgba(240,64,127,.38);
     opacity:0;transform:translateY(10px);
-    animation:aparecer .7s ease 1.55s forwards, respirar 2.8s ease-in-out 2.4s infinite;
+    animation:aparecer .7s ease 1.6s forwards, respirar 2.8s ease-in-out 2.5s infinite;
     transition:transform .15s ease;
   }
   .btn:active{transform:scale(.96)}
@@ -76,7 +106,7 @@
   .btn::after{
     content:"";position:absolute;top:0;left:-60%;width:45%;height:100%;
     background:linear-gradient(100deg,transparent,rgba(255,255,255,.42),transparent);
-    animation:brillo 3.2s ease-in-out 2.6s infinite;
+    animation:brillo 3.2s ease-in-out 2.7s infinite;
   }
   @keyframes brillo{0%{left:-60%}45%,100%{left:130%}}
 
@@ -85,12 +115,12 @@
     font-family:'Quicksand',sans-serif;font-size:14px;font-weight:700;
     color:#c2185b;background:#fff0f7;border:2px solid #ffd0e4;border-radius:50px;
     cursor:pointer;opacity:0;transform:translateY(10px);
-    animation:aparecer .7s ease 1.7s forwards;
+    animation:aparecer .7s ease 1.75s forwards;
   }
 
   .ayuda{
     display:block;margin-top:18px;font-size:12px;font-weight:500;line-height:1.6;
-    color:#c58aa8;opacity:0;animation:aparecer .7s ease 1.85s forwards;
+    color:#c58aa8;opacity:0;animation:aparecer .7s ease 1.9s forwards;
   }
 
   @media (prefers-reduced-motion:reduce){
@@ -101,7 +131,37 @@
 <body>
 
   <main class="tarjeta">
-    <span class="flor">🌸</span>
+
+    <div class="conejo">
+      <div class="sombra"></div>
+      <svg class="bunny" width="104" height="106" viewBox="0 0 104 106" fill="none">
+        <g class="orejas">
+          <ellipse cx="37" cy="27" rx="8.5" ry="22" fill="#fffdfe" stroke="#f3b6d0" stroke-width="2" transform="rotate(-11 37 27)"/>
+          <ellipse cx="37" cy="28" rx="4" ry="15" fill="#ffc3de" transform="rotate(-11 37 28)"/>
+          <ellipse cx="67" cy="27" rx="8.5" ry="22" fill="#fffdfe" stroke="#f3b6d0" stroke-width="2" transform="rotate(11 67 27)"/>
+          <ellipse cx="67" cy="28" rx="4" ry="15" fill="#ffc3de" transform="rotate(11 67 28)"/>
+          <g transform="translate(28,12) rotate(-14)">
+            <ellipse cx="-5" cy="0" rx="5.5" ry="4" fill="#ff6fae"/>
+            <ellipse cx="5" cy="0" rx="5.5" ry="4" fill="#ff6fae"/>
+            <circle cx="0" cy="0" r="2.8" fill="#f0407f"/>
+          </g>
+        </g>
+
+        <circle cx="52" cy="66" r="26" fill="#fffdfe" stroke="#f3b6d0" stroke-width="2"/>
+        <ellipse cx="38" cy="72" rx="5" ry="3.4" fill="#ffc3de" opacity=".85"/>
+        <ellipse cx="66" cy="72" rx="5" ry="3.4" fill="#ffc3de" opacity=".85"/>
+        <circle cx="43" cy="63" r="3" fill="#a8365f"/>
+        <circle cx="61" cy="63" r="3" fill="#a8365f"/>
+        <circle cx="44.2" cy="61.8" r="1" fill="#fff"/>
+        <circle cx="62.2" cy="61.8" r="1" fill="#fff"/>
+        <path d="M52 70.5 l-3.2 -2.6 h6.4 z" fill="#f0407f"/>
+        <path d="M52 71.5 v2.2 M52 73.7 q-3.4 2.6 -5.6 -.4 M52 73.7 q3.4 2.6 5.6 -.4"
+              stroke="#e08bab" stroke-width="1.6" stroke-linecap="round" fill="none"/>
+        <ellipse cx="42" cy="90" rx="7" ry="4.6" fill="#fffdfe" stroke="#f3b6d0" stroke-width="2"/>
+        <ellipse cx="62" cy="90" rx="7" ry="4.6" fill="#fffdfe" stroke="#f3b6d0" stroke-width="2"/>
+      </svg>
+    </div>
+
     <h1 id="titulo">¡Bienvenida a SHEEY BAZAR!</h1>
     <p class="sub">Toca el botón para entrar a nuestro grupito ✨</p>
 
@@ -115,7 +175,6 @@
   var CODIGO = "Hhe6JSMvN4QBfm2JK7Nf50";
   var web = "https://chat.whatsapp.com/" + CODIGO;
 
-  /* burbujas */
   for (var i = 0; i < 11; i++){
     var b = document.createElement("div");
     b.className = "burbuja";
@@ -126,7 +185,6 @@
     document.body.appendChild(b);
   }
 
-  /* título letra por letra, sin partir palabras */
   var h = document.getElementById("titulo");
   var palabras = h.textContent.trim().split(/\s+/);
   h.textContent = "";
@@ -138,14 +196,13 @@
       var sp = document.createElement("span");
       sp.className = "letra";
       sp.textContent = ch;
-      sp.style.animation = "letra .5s cubic-bezier(.2,.75,.3,1) " + (0.75 + n*0.032) + "s forwards";
+      sp.style.animation = "letra .5s cubic-bezier(.2,.75,.3,1) " + (0.8 + n*0.032) + "s forwards";
       cont.appendChild(sp);
       n++;
     });
     h.appendChild(cont);
   });
 
-  /* salida del navegador de Facebook */
   var ua = navigator.userAgent || "";
   var esIOS = /iPhone|iPad|iPod/i.test(ua), esAndroid = /Android/i.test(ua);
   var enApp = /FBAN|FBAV|FB_IAB|Instagram|Line|MicroMessenger/i.test(ua);
