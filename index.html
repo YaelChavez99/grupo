@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Únete a nuestro grupito 💕</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box}
+
+  body{
+    margin:0;
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-family:'Quicksand',-apple-system,sans-serif;
+    padding:24px;
+    overflow:hidden;
+    background:linear-gradient(160deg,#ffe3f1 0%,#ffc9e3 45%,#ffb3d9 100%);
+  }
+
+  .tarjeta{
+    position:relative;
+    z-index:2;
+    width:100%;
+    max-width:340px;
+    padding:38px 28px 30px;
+    text-align:center;
+    background:rgba(255,255,255,.75);
+    backdrop-filter:blur(10px);
+    border:2px solid #fff;
+    border-radius:32px;
+    box-shadow:0 18px 45px rgba(214,51,132,.22);
+    animation:entrar .7s ease-out;
+  }
+
+  @keyframes entrar{
+    from{opacity:0;transform:translateY(18px) scale(.96)}
+    to{opacity:1;transform:none}
+  }
+
+  .icono{
+    display:block;
+    font-size:52px;
+    margin-bottom:10px;
+    animation:latir 1.8s ease-in-out infinite;
+  }
+
+  @keyframes latir{
+    0%,100%{transform:scale(1)}
+    50%{transform:scale(1.12)}
+  }
+
+  h1{
+    margin:0 0 8px;
+    font-size:24px;
+    font-weight:700;
+    color:#c2185b;
+    letter-spacing:.3px;
+  }
+
+  p{
+    margin:0 0 26px;
+    font-size:15px;
+    font-weight:500;
+    line-height:1.55;
+    color:#a4547c;
+  }
+
+  a.btn{
+    display:block;
+    padding:17px;
+    font-size:18px;
+    font-weight:700;
+    letter-spacing:.4px;
+    color:#fff;
+    text-decoration:none;
+    border-radius:50px;
+    background:linear-gradient(135deg,#ff6fae 0%,#f0407f 100%);
+    box-shadow:0 10px 22px rgba(240,64,127,.38);
+    transition:transform .15s ease;
+  }
+
+  a.btn:active{transform:scale(.96)}
+
+  a.btn:focus-visible{
+    outline:3px solid #c2185b;
+    outline-offset:3px;
+  }
+
+  small{
+    display:block;
+    margin-top:22px;
+    font-size:12px;
+    font-weight:500;
+    line-height:1.6;
+    color:#c58aa8;
+  }
+
+  .burbuja{
+    position:absolute;
+    border-radius:50%;
+    background:rgba(255,255,255,.45);
+    animation:flotar 9s ease-in-out infinite;
+  }
+
+  @keyframes flotar{
+    0%,100%{transform:translateY(0)}
+    50%{transform:translateY(-26px)}
+  }
+
+  @media (prefers-reduced-motion:reduce){
+    *{animation:none !important;transition:none !important}
+  }
+</style>
+</head>
+<body>
+
+  <div class="burbuja" style="width:120px;height:120px;top:8%;left:-30px"></div>
+  <div class="burbuja" style="width:80px;height:80px;bottom:12%;right:-20px;animation-delay:1.5s"></div>
+  <div class="burbuja" style="width:50px;height:50px;top:18%;right:14%;animation-delay:3s"></div>
+
+  <main class="tarjeta">
+    <span class="icono">🌸</span>
+    <h1>¡Bienvenida!</h1>
+    <p>Toca el botón y entra a nuestro grupo de WhatsApp para enterarte de todo primero ✨</p>
+    <a class="btn" id="btn" href="https://chat.whatsapp.com/LTLW0bmAotL4OJDiaC0vMr">Entrar al grupo 💗</a>
+    <small>¿No se abre? Mantén presionado el enlace<br>y elige “Abrir en Chrome” o “Abrir en Safari”.</small>
+  </main>
+
+<script>
+  // ⬇️ Si algún día cambias el grupo, edita SOLO esta línea.
+  var CODIGO = "LTLW0bmAotL4OJDiaC0vMr";
+
+  var web = "https://chat.whatsapp.com/" + CODIGO;
+  var destino = /android/i.test(navigator.userAgent)
+    ? "intent://chat.whatsapp.com/" + CODIGO + "#Intent;scheme=https;package=com.whatsapp;end"
+    : web;
+
+  document.getElementById("btn").href = destino;
+
+  // Intento automático de abrir WhatsApp; si falla, el botón sigue ahí.
+  setTimeout(function(){ window.location.href = destino; }, 700);
+</script>
+
+</body>
+</html>
