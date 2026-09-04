@@ -40,15 +40,24 @@
     <span class="icono">🌸</span>
     <h1>¡Bienvenida!</h1>
     <p>Toca el botón y entra a nuestro grupo de WhatsApp para enterarte de todo primero ✨</p>
-    <a class="btn" id="btn" href="https://chat.whatsapp.com/Hhe6JSMvN4QBfm2JK7Nf50">Entrar al grupo 💗</a>
+    <a class="btn" id="btn" href="whatsapp://chat?code=Hhe6JSMvN4QBfm2JK7Nf50">Entrar al grupo 💗</a>
     <small>¿No se abre? Mantén presionado el enlace<br>y elige “Abrir en Chrome” o “Abrir en Safari”.</small>
   </main>
 
 <script>
   var CODIGO = "Hhe6JSMvN4QBfm2JK7Nf50";
-  var destino = "https://chat.whatsapp.com/" + CODIGO;
-  document.getElementById("btn").href = destino;
-  setTimeout(function(){ window.location.replace(destino); }, 600);
+  var app = "whatsapp://chat?code=" + CODIGO;
+  var web = "https://chat.whatsapp.com/" + CODIGO;
+
+  document.getElementById("btn").href = app;
+
+  // Intenta abrir la app directo
+  setTimeout(function(){ window.location.href = app; }, 400);
+
+  // Si en 2 segundos seguimos aquí, la app no respondió: usa la vía web
+  setTimeout(function(){
+    if (!document.hidden) { window.location.href = web; }
+  }, 2000);
 </script>
 </body>
 </html>
