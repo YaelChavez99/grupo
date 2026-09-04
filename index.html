@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>SHEEY BAZAR 🌸 Únete a nuestro grupito</title>
+<title>SHEEY BAZAR 🌸</title>
 <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
 <style>
   *{box-sizing:border-box}
@@ -11,65 +11,74 @@
        font-family:'Quicksand',sans-serif;padding:24px;
        background:linear-gradient(160deg,#ffe3f1 0%,#ffc9e3 45%,#ffb3d9 100%)}
   .tarjeta{width:100%;max-width:340px;padding:36px 26px 28px;text-align:center;
-           background:rgba(255,255,255,.8);backdrop-filter:blur(10px);
+           background:rgba(255,255,255,.82);backdrop-filter:blur(10px);
            border:2px solid #fff;border-radius:32px;
            box-shadow:0 18px 45px rgba(214,51,132,.22)}
   .icono{display:block;font-size:50px;margin-bottom:10px}
   h1{margin:0 0 10px;font-size:23px;font-weight:700;color:#c2185b}
   p{margin:0 0 22px;font-size:15px;font-weight:500;line-height:1.55;color:#a4547c}
-  .btn{display:block;padding:16px;font-size:17px;font-weight:700;color:#fff;
-       text-decoration:none;border:0;width:100%;cursor:pointer;
-       font-family:'Quicksand',sans-serif;border-radius:50px;
-       background:linear-gradient(135deg,#ff6fae 0%,#f0407f 100%);
+  .btn{display:block;width:100%;padding:17px;font-size:17px;font-weight:700;color:#fff;
+       text-decoration:none;border:0;cursor:pointer;font-family:'Quicksand',sans-serif;
+       border-radius:50px;background:linear-gradient(135deg,#ff6fae 0%,#f0407f 100%);
        box-shadow:0 10px 22px rgba(240,64,127,.38)}
   .btn:active{transform:scale(.96)}
-  .pasos{text-align:left;background:#fff5fa;border-radius:20px;padding:18px 20px;margin-bottom:20px}
-  .pasos li{font-size:14.5px;color:#a4547c;font-weight:500;line-height:1.7;margin-bottom:6px}
-  small{display:block;margin-top:18px;font-size:12px;color:#c58aa8;font-weight:500}
+  .btn2{display:block;width:100%;margin-top:12px;padding:14px;font-size:14px;font-weight:700;
+        color:#c2185b;background:#fff0f7;border:2px solid #ffd0e4;border-radius:50px;
+        cursor:pointer;font-family:'Quicksand',sans-serif}
+  small{display:block;margin-top:18px;font-size:12px;color:#c58aa8;font-weight:500;line-height:1.6}
 </style>
 </head>
 <body>
-  <main class="tarjeta" id="tarjeta"></main>
+  <main class="tarjeta">
+    <span class="icono">🌸</span>
+    <h1>¡Bienvenida a SHEEY BAZAR!</h1>
+    <p>Toca el botón para entrar a nuestro grupito ✨</p>
+    <a class="btn" id="btn" href="#">Entrar al grupo 💗</a>
+    <button class="btn2" id="copiar">Copiar enlace</button>
+    <small id="ayuda">Si no abre, toca ⋯ arriba y elige<br>“Abrir en Safari” o “Abrir en Chrome”.</small>
+  </main>
 
 <script>
+(function(){
   var CODIGO = "Hhe6JSMvN4QBfm2JK7Nf50";
   var web = "https://chat.whatsapp.com/" + CODIGO;
-  var app = "whatsapp://chat?code=" + CODIGO;
-  var caja = document.getElementById("tarjeta");
 
-  var enFacebook = /FBAN|FBAV|FB_IAB|Instagram/i.test(navigator.userAgent);
+  var ua = navigator.userAgent || "";
+  var esIOS = /iPhone|iPad|iPod/i.test(ua);
+  var esAndroid = /Android/i.test(ua);
+  var enApp = /FBAN|FBAV|FB_IAB|Instagram|Line|MicroMessenger/i.test(ua);
 
-  if (enFacebook) {
-    caja.innerHTML =
-      '<span class="icono">🌸</span>' +
-      '<h1>¡Casi lista!</h1>' +
-      '<p>Facebook no deja abrir WhatsApp desde aquí. Son 2 segundos:</p>' +
-      '<ol class="pasos">' +
-        '<li>Toca los <b>tres puntitos</b> ⋯ de arriba a la derecha.</li>' +
-        '<li>Elige <b>“Abrir en el navegador”</b> o <b>“Abrir en Safari”</b>.</li>' +
-        '<li>Listo, ahí sí entra el grupo 💗</li>' +
-      '</ol>' +
-      '<button class="btn" id="copiar">Copiar el enlace</button>' +
-      '<small>También puedes pegar el enlace en Chrome o Safari.</small>';
+  var destino = web;
 
-    document.getElementById("copiar").onclick = function(){
-      var b = this;
-      navigator.clipboard.writeText(web).then(function(){
-        b.textContent = "¡Copiado! Pégalo en tu navegador ✨";
-      }).catch(function(){
-        b.textContent = web;
-      });
-    };
-  } else {
-    caja.innerHTML =
-      '<span class="icono">🌸</span>' +
-      '<h1>¡Bienvenida a SHEEY BAZAR!</h1>' +
-      '<p>Toca el botón y entra a nuestro grupito para enterarte de todo primero ✨</p>' +
-      '<a class="btn" href="' + app + '">Entrar al grupo 💗</a>';
-
-    setTimeout(function(){ window.location.href = app; }, 400);
-    setTimeout(function(){ if (!document.hidden) window.location.href = web; }, 2000);
+  if (enApp && esIOS) {
+    // Fuerza la salida a Safari
+    destino = "x-safari-" + web;
+  } else if (enApp && esAndroid) {
+    // Fuerza la salida a Chrome, con respaldo web (nunca a Play Store)
+    destino = "intent://chat.whatsapp.com/" + CODIGO +
+              "#Intent;scheme=https;package=com.android.chrome;" +
+              "S.browser_fallback_url=" + encodeURIComponent(web) + ";end";
   }
+
+  var btn = document.getElementById("btn");
+  btn.href = destino;
+
+  // Respaldo: si el esquema especial no hace nada, manda a la vía normal
+  btn.addEventListener("click", function(){
+    setTimeout(function(){
+      if (!document.hidden) { window.location.href = web; }
+    }, 1200);
+  });
+
+  document.getElementById("copiar").onclick = function(){
+    var b = this;
+    navigator.clipboard.writeText(web).then(function(){
+      b.textContent = "¡Copiado! Pégalo en tu navegador";
+    }).catch(function(){
+      document.getElementById("ayuda").textContent = web;
+    });
+  };
+})();
 </script>
 </body>
 </html>
