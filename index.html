@@ -3,61 +3,73 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Únete a nuestro grupito 💕</title>
+<title>SHEEY BAZAR 🌸 Únete a nuestro grupito</title>
 <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
 <style>
   *{box-sizing:border-box}
   body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;
-       font-family:'Quicksand',sans-serif;padding:24px;overflow:hidden;
+       font-family:'Quicksand',sans-serif;padding:24px;
        background:linear-gradient(160deg,#ffe3f1 0%,#ffc9e3 45%,#ffb3d9 100%)}
-  .tarjeta{position:relative;z-index:2;width:100%;max-width:340px;padding:38px 28px 30px;
-           text-align:center;background:rgba(255,255,255,.75);backdrop-filter:blur(10px);
-           border:2px solid #fff;border-radius:32px;box-shadow:0 18px 45px rgba(214,51,132,.22);
-           animation:entrar .7s ease-out}
-  @keyframes entrar{from{opacity:0;transform:translateY(18px) scale(.96)}to{opacity:1;transform:none}}
-  .icono{display:block;font-size:52px;margin-bottom:10px;animation:latir 1.8s ease-in-out infinite}
-  @keyframes latir{0%,100%{transform:scale(1)}50%{transform:scale(1.12)}}
-  h1{margin:0 0 8px;font-size:24px;font-weight:700;color:#c2185b;letter-spacing:.3px}
-  p{margin:0 0 26px;font-size:15px;font-weight:500;line-height:1.55;color:#a4547c}
-  a.btn{display:block;padding:17px;font-size:18px;font-weight:700;letter-spacing:.4px;color:#fff;
-        text-decoration:none;border-radius:50px;
-        background:linear-gradient(135deg,#ff6fae 0%,#f0407f 100%);
-        box-shadow:0 10px 22px rgba(240,64,127,.38);transition:transform .15s ease}
-  a.btn:active{transform:scale(.96)}
-  small{display:block;margin-top:22px;font-size:12px;font-weight:500;line-height:1.6;color:#c58aa8}
-  .burbuja{position:absolute;border-radius:50%;background:rgba(255,255,255,.45);
-           animation:flotar 9s ease-in-out infinite}
-  @keyframes flotar{0%,100%{transform:translateY(0)}50%{transform:translateY(-26px)}}
-  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+  .tarjeta{width:100%;max-width:340px;padding:36px 26px 28px;text-align:center;
+           background:rgba(255,255,255,.8);backdrop-filter:blur(10px);
+           border:2px solid #fff;border-radius:32px;
+           box-shadow:0 18px 45px rgba(214,51,132,.22)}
+  .icono{display:block;font-size:50px;margin-bottom:10px}
+  h1{margin:0 0 10px;font-size:23px;font-weight:700;color:#c2185b}
+  p{margin:0 0 22px;font-size:15px;font-weight:500;line-height:1.55;color:#a4547c}
+  .btn{display:block;padding:16px;font-size:17px;font-weight:700;color:#fff;
+       text-decoration:none;border:0;width:100%;cursor:pointer;
+       font-family:'Quicksand',sans-serif;border-radius:50px;
+       background:linear-gradient(135deg,#ff6fae 0%,#f0407f 100%);
+       box-shadow:0 10px 22px rgba(240,64,127,.38)}
+  .btn:active{transform:scale(.96)}
+  .pasos{text-align:left;background:#fff5fa;border-radius:20px;padding:18px 20px;margin-bottom:20px}
+  .pasos li{font-size:14.5px;color:#a4547c;font-weight:500;line-height:1.7;margin-bottom:6px}
+  small{display:block;margin-top:18px;font-size:12px;color:#c58aa8;font-weight:500}
 </style>
 </head>
 <body>
-  <div class="burbuja" style="width:120px;height:120px;top:8%;left:-30px"></div>
-  <div class="burbuja" style="width:80px;height:80px;bottom:12%;right:-20px;animation-delay:1.5s"></div>
-  <div class="burbuja" style="width:50px;height:50px;top:18%;right:14%;animation-delay:3s"></div>
-
-  <main class="tarjeta">
-    <span class="icono">🌸</span>
-    <h1>¡Bienvenida!</h1>
-    <p>Toca el botón y entra a nuestro grupo de WhatsApp para enterarte de todo primero ✨</p>
-    <a class="btn" id="btn" href="whatsapp://chat?code=Hhe6JSMvN4QBfm2JK7Nf50">Entrar al grupo 💗</a>
-    <small>¿No se abre? Mantén presionado el enlace<br>y elige “Abrir en Chrome” o “Abrir en Safari”.</small>
-  </main>
+  <main class="tarjeta" id="tarjeta"></main>
 
 <script>
   var CODIGO = "Hhe6JSMvN4QBfm2JK7Nf50";
-  var app = "whatsapp://chat?code=" + CODIGO;
   var web = "https://chat.whatsapp.com/" + CODIGO;
+  var app = "whatsapp://chat?code=" + CODIGO;
+  var caja = document.getElementById("tarjeta");
 
-  document.getElementById("btn").href = app;
+  var enFacebook = /FBAN|FBAV|FB_IAB|Instagram/i.test(navigator.userAgent);
 
-  // Intenta abrir la app directo
-  setTimeout(function(){ window.location.href = app; }, 400);
+  if (enFacebook) {
+    caja.innerHTML =
+      '<span class="icono">🌸</span>' +
+      '<h1>¡Casi lista!</h1>' +
+      '<p>Facebook no deja abrir WhatsApp desde aquí. Son 2 segundos:</p>' +
+      '<ol class="pasos">' +
+        '<li>Toca los <b>tres puntitos</b> ⋯ de arriba a la derecha.</li>' +
+        '<li>Elige <b>“Abrir en el navegador”</b> o <b>“Abrir en Safari”</b>.</li>' +
+        '<li>Listo, ahí sí entra el grupo 💗</li>' +
+      '</ol>' +
+      '<button class="btn" id="copiar">Copiar el enlace</button>' +
+      '<small>También puedes pegar el enlace en Chrome o Safari.</small>';
 
-  // Si en 2 segundos seguimos aquí, la app no respondió: usa la vía web
-  setTimeout(function(){
-    if (!document.hidden) { window.location.href = web; }
-  }, 2000);
+    document.getElementById("copiar").onclick = function(){
+      var b = this;
+      navigator.clipboard.writeText(web).then(function(){
+        b.textContent = "¡Copiado! Pégalo en tu navegador ✨";
+      }).catch(function(){
+        b.textContent = web;
+      });
+    };
+  } else {
+    caja.innerHTML =
+      '<span class="icono">🌸</span>' +
+      '<h1>¡Bienvenida a SHEEY BAZAR!</h1>' +
+      '<p>Toca el botón y entra a nuestro grupito para enterarte de todo primero ✨</p>' +
+      '<a class="btn" href="' + app + '">Entrar al grupo 💗</a>';
+
+    setTimeout(function(){ window.location.href = app; }, 400);
+    setTimeout(function(){ if (!document.hidden) window.location.href = web; }, 2000);
+  }
 </script>
 </body>
 </html>
